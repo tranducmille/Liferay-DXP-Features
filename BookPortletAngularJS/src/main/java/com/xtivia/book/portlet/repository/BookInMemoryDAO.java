@@ -4,6 +4,10 @@ import java.util.List;
 
 import com.xtivia.book.portlet.entity.Book;
 
+/**
+ * @author created by dtran
+ * A DAO interface
+ */
 public interface BookInMemoryDAO {
 
 	public List<Book> getBookList();

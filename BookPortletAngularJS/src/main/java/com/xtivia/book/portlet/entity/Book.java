@@ -2,14 +2,12 @@ package com.xtivia.book.portlet.entity;
 
 import com.xtivia.book.portlet.base.BaseDomain;
 
+/**
+ * @author created by dtran
+ * Entity class
+ */
 public class Book extends BaseDomain {
 	
-	@Override
-	public String toString() {
-		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", isbn=" + isbn + ", summary=" + summary
-				+ "]";
-	}
-
 	private static final long serialVersionUID = -5496238102046637451L;
 	private int id;
 	private String title = "";
@@ -103,7 +101,12 @@ public class Book extends BaseDomain {
 			return false;
 		return true;
 	}
-
+	@Override
+	public String toString() {
+		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", isbn=" + isbn + ", summary=" + summary
+				+ "]";
+	}
+	
 	public int getId() {
 		return id;
 	}

@@ -20,6 +20,10 @@ import com.xtivia.book.portlet.service.BookService;
 
 import aQute.bnd.annotation.metatype.Configurable;
 
+/**
+ * @author created by dtran
+ * A book controller to handle all the request from client
+ */
 @Controller("bookController")
 @RequestMapping("VIEW")
 public class BookController{
@@ -27,6 +31,12 @@ public class BookController{
 	@Autowired(required = true)
 	BookService bookService;
 
+	/**
+	 * set default value for constant
+	 * @param request
+	 * @param response
+	 * @return templatename
+	 */
 	@RenderMapping
 	public String processRenderRequest(RenderRequest request, RenderResponse response) {
 		

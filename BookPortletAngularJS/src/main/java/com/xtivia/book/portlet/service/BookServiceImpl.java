@@ -10,7 +10,10 @@ import com.xtivia.book.portlet.base.BaseDomain;
 import com.xtivia.book.portlet.base.BaseService;
 import com.xtivia.book.portlet.entity.Book;
 import com.xtivia.book.portlet.repository.BookInMemoryDAO;
-
+/**
+ * @author created by dtran
+ * A Service implementation
+ */
 @Service("bookService")
 public class BookServiceImpl extends BaseService<BaseDomain, BaseDAO> implements BookService{
 

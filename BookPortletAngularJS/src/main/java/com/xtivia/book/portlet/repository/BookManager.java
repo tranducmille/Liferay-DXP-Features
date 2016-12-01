@@ -5,11 +5,18 @@ import java.util.List;
 
 import com.xtivia.book.portlet.entity.Book;
 import com.xtivia.book.portlet.util.SequenceGenerator;
-
+/**
+ * @author created by dtran
+ * A book manager implementation
+ */
 public class BookManager {
 	
 	private static BookManager _INSTANCE = null;
 	
+	/**
+	 * BOokManager singleton instance
+	 * @return singleton object
+	 */
 	public static BookManager getInstance(){
 		if(_INSTANCE == null){
 			_INSTANCE = new BookManager();
@@ -19,6 +26,9 @@ public class BookManager {
 	
 	private List<Book> books = new ArrayList<Book>();
 	
+	/**
+	 * initialize data
+	 */
 	public BookManager(){
 		books.add(new Book(SequenceGenerator.getInstance().getSequence(), "The New Yorker Stories","Anne Beattie","1234556","The new yorker stories comments"));
 		books.add(new Book(SequenceGenerator.getInstance().getSequence(), "Cleopatra: A life","Stacy Schiff","2345678","Cleopatra: A life comments"));
@@ -37,12 +47,21 @@ public class BookManager {
 		this.books = books;
 	}
 	
+	/**
+	 * return book by id
+	 * @param id
+	 * @return Book
+	 */
 	public Book getBookById(int id){
 		Book rs = books.stream().filter(book -> book.getId() == id)
 								.findFirst().orElse(null);
 		return rs;
 	}
 	
+	/**
+	 * delete book by id
+	 * @param id
+	 */
 	public void deleteBookById(int id){
 		Book book = getBookById(id);
 		if(book != null){
@@ -52,10 +71,18 @@ public class BookManager {
 		}
 	}
 	
+	/**
+	 * add a new book
+	 * @param book
+	 */
 	public void addBook(Book book){
 		books.add(book);
 	}
 	
+	/**
+	 * @param isbn
+	 * @return list of Book
+	 */
 	public List<Book> findBooksByISBN(String isbn){
 		List<Book> rs = new ArrayList<Book>();
 		books.stream().filter(book -> book.getIsbn().contains(isbn)).forEach(b -> rs.add(b));

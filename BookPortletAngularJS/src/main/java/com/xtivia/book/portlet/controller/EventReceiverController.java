@@ -20,6 +20,10 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.xtivia.book.portlet.entity.Book;
 import com.xtivia.book.portlet.service.BookService;
 
+/**
+ * @author created by dtran
+ * A event controller to handle all the request from client
+ */
 @Controller
 @RequestMapping("VIEW")
 public class EventReceiverController implements EventPortlet{
@@ -27,16 +31,23 @@ public class EventReceiverController implements EventPortlet{
 	@Autowired(required = true)
 	BookService bookService;
 	
+	/* (non-Javadoc)
+	 * @see javax.portlet.EventPortlet#processEvent(javax.portlet.EventRequest, javax.portlet.EventResponse)
+	 */
 	@EventMapping
 	public void processEvent(EventRequest request, EventResponse response) throws PortletException, IOException {
 		javax.portlet.Event event = request.getEvent();
         String isbn = (String) event.getValue();
-        System.out.println("Getting para " + isbn);
         request.setAttribute("isbn", isbn);
         response.setRenderParameter("isbn", isbn);
 		response.setRenderParameter("action", "showViewPage");
 	}
 	
+	/**
+	 * @param request
+	 * @param model
+	 * @return
+	 */
 	@RenderMapping(params = "action=showViewPage")
 	public String showEditPage(RenderRequest request,Model model) {
 		String isbn = ParamUtil.getString(request, "isbn");

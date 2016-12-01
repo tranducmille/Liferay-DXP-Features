@@ -12,23 +12,38 @@ import com.xtivia.xsf.core.commands.CommandResult;
 import com.xtivia.xsf.core.commands.ICommand;
 import com.xtivia.xsf.core.commands.IContext;
 import com.xtivia.xsf.core.web.Xsf;
-
+/**
+ * @author created by dtran
+ * A rest manager implementation
+ */
 @Route(uri = "/books")
 public class BookServerREST implements ICommand {
 	
 	@Autowired(required = true)
 	BookService bookService;
 	
+	/** Find all books
+	 * @param context
+	 * @return CommandResult object
+	 */
 	@Route(uri="", method="GET", authenticated=false)
-	public CommandResult getAllPeople(IContext context) {
+	public CommandResult getAllBook(IContext context) {
 		List<Book> books = bookService.getBookList();
 		return new CommandResult().setSucceeded(true).setData(books).setMessage("OK");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.xtivia.xsf.core.commands.ICommand#execute(com.xtivia.xsf.core.commands.IContext)
+	 */
 	public CommandResult execute(IContext context) throws Exception {
 		return Xsf.dispatch(this, context);
 	}
 
+	/**
+	 * Find book by id
+	 * @param context
+	 * @return CommandResult
+	 */
 	@Route(uri = "/{id}", method = "GET", authenticated = false)
 	public CommandResult getBook(IContext context) {
 		CommandResult cr = new CommandResult().setSucceeded(false).setMessage("General error");
@@ -46,6 +61,11 @@ public class BookServerREST implements ICommand {
 
 	}
 	
+	/**
+	 * Add book
+	 * @param context
+	 * @return CommandResult
+	 */
 	@Route(uri = "", method = "POST", authenticated = false,
 			inputClass = "com.xtivia.book.portlet.service.BookServerREST$Book", inputKey = "book")
 	public CommandResult addBook(IContext context) {
@@ -65,6 +85,11 @@ public class BookServerREST implements ICommand {
 		return cr;
 	}
 	
+	/**
+	 * Update a book
+	 * @param context
+	 * @return CommandResult
+	 */
 	@Route(uri = "/{id}", method = "PUT", authenticated = false,
 			inputClass = "com.xtivia.book.portlet.service.BookServerREST$Book", inputKey = "book")
 	public CommandResult updateBook(IContext context) {
@@ -90,6 +115,11 @@ public class BookServerREST implements ICommand {
 		return cr;
 	}
 	
+	/**
+	 * Delete book
+	 * @param context
+	 * @return CommandResult
+	 */
 	@Route(uri = "/{id}", method = "DELETE", authenticated = false)
 	public CommandResult deleteBook(IContext context) {
 		CommandResult cr = new CommandResult().setSucceeded(false).setMessage("General error");
@@ -105,6 +135,11 @@ public class BookServerREST implements ICommand {
 
 	}
 
+	/**
+	 * Book validation
+	 * @param book
+	 * @throws Exception
+	 */
 	private static void validateBook(Book book) throws Exception {
 
 		Validate.notNull(book.getTitle(), "Title is required.");
@@ -112,6 +147,11 @@ public class BookServerREST implements ICommand {
 		Validate.notNull(book.getIsbn(), "ISBN is required.");
 
 	}
+	/**
+	 * @param context
+	 * @return book id
+	 * @throws Exception
+	 */
 	private static int getInputId(IContext context) throws Exception {
 
 		  String idstr = context.find("id");
@@ -119,6 +159,11 @@ public class BookServerREST implements ICommand {
 		  return new Integer(idstr);
 
 	}
+	/**
+	 * @param context
+	 * @return Book instance
+	 * @throws Exception
+	 */
 	private static Book getInputBook(IContext context) throws Exception {
 
 		Book book = context.find("book");
