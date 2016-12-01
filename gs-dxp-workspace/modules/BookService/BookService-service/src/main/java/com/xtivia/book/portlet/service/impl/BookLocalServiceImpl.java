@@ -89,6 +89,9 @@ public class BookLocalServiceImpl extends BookLocalServiceBaseImpl {
 	    }
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.xtivia.book.portlet.service.BookLocalService#createBook(com.xtivia.book.portlet.model.Book, long, com.liferay.portal.kernel.service.ServiceContext)
+	 */
 	public Book createBook(Book newBook, long userId, ServiceContext context) throws PortalException{
 		Date now = new Date();
 	    User user = userLocalService.getUser(userId);
@@ -137,6 +140,9 @@ public class BookLocalServiceImpl extends BookLocalServiceBaseImpl {
 		return book.getTitle();
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.xtivia.book.portlet.service.BookLocalService#updateStatus(long, long, int, com.liferay.portal.kernel.service.ServiceContext)
+	 */
 	public Book updateStatus(long userId, long bookId, int status,
 		       ServiceContext serviceContext) throws PortalException,
 		       SystemException {
@@ -159,6 +165,9 @@ public class BookLocalServiceImpl extends BookLocalServiceBaseImpl {
 		return book;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.xtivia.book.portlet.service.BookLocalService#deleteNewBook(com.xtivia.book.portlet.model.Book)
+	 */
 	public void deleteNewBook(Book book) throws PortalException{
 		long companyId = book.getCompanyId();
 		resourceLocalService.deleteResource(companyId, Book.class.getName(), 
@@ -172,6 +181,9 @@ public class BookLocalServiceImpl extends BookLocalServiceBaseImpl {
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.xtivia.book.portlet.service.BookLocalService#updateBook(long, long, com.xtivia.book.portlet.model.Book, com.liferay.portal.kernel.service.ServiceContext)
+	 */
 	public Book updateBook(long userId, long bookId, Book oldBook, ServiceContext serviceContext)
 			throws PortalException, SystemException {
 

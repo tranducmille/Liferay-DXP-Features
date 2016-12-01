@@ -13,15 +13,12 @@ import com.liferay.asset.kernel.model.AssetRenderer;
 import com.liferay.asset.kernel.model.AssetRendererFactory;
 import com.liferay.asset.kernel.model.BaseAssetRendererFactory;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.LiferayPortletURL;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
-import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.ResourceBundleLoader;
 import com.xtivia.book.portlet.model.Book;
 import com.xtivia.book.portlet.service.BookLocalService;
-import com.xtivia.book.portlet.service.BookLocalServiceUtil;
 import com.xtivia.book.portlet.service.permission.BookPermission;
 
 @Component(immediate = true, property = { "javax.portlet.name=BookPortletMVC" }, service = AssetRendererFactory.class)

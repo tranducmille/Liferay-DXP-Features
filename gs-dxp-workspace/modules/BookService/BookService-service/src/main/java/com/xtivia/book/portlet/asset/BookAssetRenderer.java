@@ -24,19 +24,29 @@ import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.ResourceBundleLoader;
 import com.xtivia.book.portlet.model.Book;
 import com.xtivia.book.portlet.service.permission.BookPermission;
-
+/**
+ * @author created by dtran
+ * A BookAssetRenderer implentation for rendering asset
+ */
 public class BookAssetRenderer extends BaseJSPAssetRenderer<Book> 
 				implements TrashRenderer {
 
 	private Book _book;
 	ResourceBundleLoader _resourceBundleLoader;
 
+	/**
+	 * @param book
+	 * @param resourceBundleLoader
+	 */
 	public BookAssetRenderer(Book book, ResourceBundleLoader resourceBundleLoader) {
 
 		_book = book;
 		_resourceBundleLoader = resourceBundleLoader;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.liferay.asset.kernel.model.BaseAssetRenderer#hasEditPermission(com.liferay.portal.kernel.security.permission.PermissionChecker)
+	 */
 	@Override
 	public boolean hasEditPermission(PermissionChecker permissionChecker) {
 
@@ -54,6 +64,9 @@ public class BookAssetRenderer extends BaseJSPAssetRenderer<Book>
 		return contains;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.liferay.asset.kernel.model.BaseAssetRenderer#hasViewPermission(com.liferay.portal.kernel.security.permission.PermissionChecker)
+	 */
 	@Override
 	public boolean hasViewPermission(PermissionChecker permissionChecker) {
 
@@ -145,6 +158,9 @@ public class BookAssetRenderer extends BaseJSPAssetRenderer<Book>
 		}*/
 		return null;
 	}
+	/* (non-Javadoc)
+	 * @see com.liferay.asset.kernel.model.BaseJSPAssetRenderer#include(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String)
+	 */
 	@Override
 	public boolean include(
 	        HttpServletRequest request, HttpServletResponse response,
@@ -156,6 +172,9 @@ public class BookAssetRenderer extends BaseJSPAssetRenderer<Book>
 	    return super.include(request, response, template);
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.liferay.asset.kernel.model.BaseAssetRenderer#getURLEdit(com.liferay.portal.kernel.portlet.LiferayPortletRequest, com.liferay.portal.kernel.portlet.LiferayPortletResponse)
+	 */
 	@Override
 	public PortletURL getURLEdit(LiferayPortletRequest liferayPortletRequest,
 	        								LiferayPortletResponse liferayPortletResponse)throws Exception {
