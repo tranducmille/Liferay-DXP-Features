@@ -16,7 +16,6 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
-import javax.servlet.http.HttpServletRequest;
 
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
@@ -40,15 +39,18 @@ import com.xtivia.portlet.book.util.SequenceGenerator;
 
 import aQute.bnd.annotation.metatype.Configurable;
 
+/**
+ * @author created by dtran
+ * A book portlet using annotation
+ */
 @Component(
 	configurationPid = "com.xtivia.portlet.book.configuration.BookConfiguration",
     immediate = true,
     property = {
-		"com.liferay.portlet.display-category=category.sample",
+		"com.liferay.portlet.display-category=Book Category",
 		"com.liferay.portlet.instanceable=true",
 		"com.liferay.portlet.configuration-action-class=com.xtivia.portlet.book.configuration.ConfigurationActionImpl",
-/*		"com.liferay.portlet.private-request-attributes=false",
-*/		"com.liferay.portlet.private-session-attributes=false",
+		"com.liferay.portlet.private-session-attributes=false",
 		"com.liferay.portlet.requires-namespaced-parameters=false",
 		"com.liferay.portlet.render-weight=2",
 		"javax.portlet.display-name=Book Portlet MVC",
@@ -57,15 +59,17 @@ import aQute.bnd.annotation.metatype.Configurable;
 		"javax.portlet.init-param.view-template=/view.jsp",
 		"javax.portlet.init-param.edit-template=/edit.jsp",
         "javax.portlet.init-param.config-template=/configuration.jsp",
-		"com.liferay.portlet.header-portlet-css=/css/main.css",/*
-		"com.liferay.portlet.header-portlet-javascript=true",
-		"com.liferay.portlet.footer-portlet-javascript=true",*/
+		"com.liferay.portlet.header-portlet-css=/css/main.css",
 		"javax.portlet.resource-bundle=content.Language",
 		"javax.portlet.security-role-ref=power-user,user"
 	},
 	service = Portlet.class
 )
 public class BookPorletPortlet extends MVCPortlet {
+	
+	/* (non-Javadoc)
+	 * @see com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet#doView(javax.portlet.RenderRequest, javax.portlet.RenderResponse)
+	 */
 	@Override
 	public void doView(RenderRequest renderRequest, RenderResponse renderResponse)
 			throws IOException, PortletException {
@@ -73,19 +77,6 @@ public class BookPorletPortlet extends MVCPortlet {
 		BookDAOInterface bookDAO = new BookInMemoryDAOImpl();		
 		PortletSession portletSession = renderRequest.getPortletSession();
 		String isbn = (String) portletSession.getAttribute("isbnSession",PortletSession.APPLICATION_SCOPE);
-		System.out.println("Search by isbn : " + isbn);
-		
-		System.out.println(portletSession.getAttribute("isbnSession"));
-		System.out.println(portletSession.getAttribute("LIFERAY_SHARED_my-session-attribute-name1"));
-		System.out.println(portletSession.getAttribute("LIFERAY_SHARED_my-session-attribute-name",PortletSession.APPLICATION_SCOPE));
-		System.out.println(portletSession.getAttribute("LIFERAY_SHARED_my-session-attribute-name1",PortletSession.APPLICATION_SCOPE));
-		HttpServletRequest req = PortalUtil.getHttpServletRequest(renderRequest);
-		System.out.println(req.getSession(false).getAttribute("isbnSession"));
-		System.out.println(req.getSession(true).getAttribute("isbnSession"));
-		System.out.println(req.getSession(true).getAttribute("LIFERAY_SHARED_my-session-attribute-name1"));
-		System.out.println(req.getSession(false).getAttribute("LIFERAY_SHARED_my-session-attribute-name1"));
-		System.out.println(renderRequest.getPortletSession(false).getAttribute("isbn_session",PortletSession.APPLICATION_SCOPE));
-
 		if(isbn != null){
 			renderRequest.setAttribute("books", bookDAO.getBookList(isbn));
 		}else{
@@ -96,20 +87,26 @@ public class BookPorletPortlet extends MVCPortlet {
 		super.doView(renderRequest, renderResponse);
 	}
 		
+	/**
+	 * @param actionRequest
+	 * @param actionResponse
+	 * @throws IOException
+	 * @throws PortletException
+	 */
 	public void updateMessageAction(ActionRequest actionRequest, ActionResponse actionResponse)
 			throws IOException, PortletException {
 
 		String title = actionRequest.getParameter("message");
-		System.out.println(title);
 		displayTitle(title, actionRequest);
-		System.out.println("updateMessageAction");
-		/*String portletName = (String) actionRequest.getAttribute(WebKeys.PORTLET_ID); 
-		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
-		PortletURL redirectURL = PortletURLFactoryUtil.create(PortalUtil.getHttpServletRequest(actionRequest),
-				portletName,themeDisplay.getLayout().getPlid(), PortletRequest.RENDER_PHASE); */
 		actionResponse.setPortletMode(PortletMode.VIEW);
 	}
 	
+	/**
+	 * @param title
+	 * @param request
+	 * @throws IOException
+	 * @throws PortletException
+	 */
 	private void displayTitle(String title, PortletRequest request) throws IOException, PortletException {
 		ThemeDisplay themeDisplay = (ThemeDisplay) request.getAttribute(WebKeys.THEME_DISPLAY);
 		Layout layout = themeDisplay.getLayout();
@@ -120,6 +117,9 @@ public class BookPorletPortlet extends MVCPortlet {
 		portletSetup.store();
 	}
 	
+	/**
+	 * @param properties
+	 */
 	@Activate
     @Modified
     protected void activate(Map<String, Object> properties) {
@@ -129,6 +129,14 @@ public class BookPorletPortlet extends MVCPortlet {
 
     private volatile BookConfiguration _configuration;
 	
+	/**
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws PortletException
+	 * @throws PortalException
+	 * @throws SystemException
+	 */
 	public void addBookProcessAction(ActionRequest request, ActionResponse response)
             throws IOException, PortletException, PortalException, SystemException{
         String title=ParamUtil.get(request, "title", "");
@@ -144,6 +152,14 @@ public class BookPorletPortlet extends MVCPortlet {
         }
         response.setPortletMode(PortletMode.VIEW);
     }
+	/**
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws PortletException
+	 * @throws PortalException
+	 * @throws SystemException
+	 */
 	public void updateBookProcessAction(ActionRequest request, ActionResponse response)
             throws IOException, PortletException, PortalException, SystemException{
 		String id = ParamUtil.get(request, "id", "");
@@ -167,24 +183,32 @@ public class BookPorletPortlet extends MVCPortlet {
         response.setPortletMode(PortletMode.VIEW);
     }
 
+	/**
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws PortletException
+	 * @throws PortalException
+	 * @throws SystemException
+	 */
 	public void cancelProcessAction(ActionRequest request, ActionResponse response)
         throws IOException, PortletException, PortalException, SystemException{
     	BookDAOInterface bookDAO = new BookInMemoryDAOImpl();
         request.setAttribute("books", bookDAO.getBookList());
         response.setPortletMode(PortletMode.VIEW);
-        System.out.println("cancelProcessAction");
     }
 	
+	/* (non-Javadoc)
+	 * @see com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet#serveResource(javax.portlet.ResourceRequest, javax.portlet.ResourceResponse)
+	 */
 	public void serveResource(ResourceRequest request, ResourceResponse response)
 		    throws IOException, PortletException {
     	int bookId = ParamUtil.getInteger(request, "bookId");
 		BookDAOInterface bookDAO = new BookInMemoryDAOImpl();
 		bookDAO.deleteBook(bookId);
-		System.out.println("Successfully Deleted bookId of Id =>" + bookId);
 		request.setAttribute("books", bookDAO.getBookList());
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		out.println("success");
 		out.flush();
 		super.serveResource(request, response);
 	}

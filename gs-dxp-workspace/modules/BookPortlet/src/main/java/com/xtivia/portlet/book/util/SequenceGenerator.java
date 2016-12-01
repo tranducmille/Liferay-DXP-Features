@@ -1,7 +1,10 @@
 package com.xtivia.portlet.book.util;
 
 import java.util.concurrent.atomic.AtomicInteger;
-
+/**
+ * @author created by dtran
+ * A library to generate sequence of number
+ */
 public class SequenceGenerator {
 
 	private AtomicInteger atomicInteger;

@@ -8,12 +8,19 @@ import org.osgi.service.component.annotations.Modified;
 
 import aQute.bnd.annotation.metatype.Configurable;
 
+/**
+ * @author created by dtran
+ * A application configuration
+ */
 @Component(configurationPid = "com.xtivia.portlet.book.configuration.BookConfiguration")
 public class BookAppManager {
 	public String getDisplayOptions(Map options) {
 		return (String) options.get(_configuration.displayOptions());
 	}
 
+	/**
+	 * @param properties
+	 */
 	@Activate
 	@Modified
 	protected void activate(Map<String, Object> properties) {

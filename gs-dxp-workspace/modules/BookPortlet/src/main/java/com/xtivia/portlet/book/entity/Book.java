@@ -1,5 +1,9 @@
 package com.xtivia.portlet.book.entity;
 
+/**
+ * @author created by dtran
+ * A Book entity
+ */
 public class Book {
 	
 	private int id;
