@@ -8,6 +8,10 @@ import com.xtivia.book.portlet.base.BaseDAO;
 import com.xtivia.book.portlet.base.BaseDomain;
 import com.xtivia.book.portlet.entity.Book;
 
+/**
+ * @author created by dtran
+ * A DAO implementation
+ */
 @Repository("bookDAO")
 public class BookInMemoryDAOImpl extends BaseDAO<BaseDomain, Number> implements BookInMemoryDAO {
 

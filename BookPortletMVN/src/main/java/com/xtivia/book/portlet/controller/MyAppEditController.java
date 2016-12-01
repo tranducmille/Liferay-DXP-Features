@@ -25,16 +25,31 @@ import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
+/**
+ * @author created by dtran
+ * A class for preference in mode EDIT
+ */
 @Controller("myAppEditController")
 @RequestMapping("EDIT")
 public class MyAppEditController {
 
+    /**
+     * @param request
+     * @param response
+     * @return template name
+     */
     @RenderMapping
     public String processRenderRequest(RenderRequest request,
             RenderResponse response) {
         return "edit";
     }
 
+    /**
+     * @param request
+     * @param response
+     * @throws IOException
+     * @throws PortletException
+     */
     @ActionMapping(params="action=updateMsgPrefAction")
     public void updateMsgPrefAction(ActionRequest request, ActionResponse response) throws IOException, PortletException{
 
@@ -46,6 +61,12 @@ public class MyAppEditController {
     }
     
 	
+	/**
+	 * @param title
+	 * @param request
+	 * @throws IOException
+	 * @throws PortletException
+	 */
 	private void displayTitle(String title, PortletRequest request) throws IOException, PortletException {
 		ThemeDisplay themeDisplay = (ThemeDisplay) request.getAttribute(WebKeys.THEME_DISPLAY);
 		Layout layout = themeDisplay.getLayout();

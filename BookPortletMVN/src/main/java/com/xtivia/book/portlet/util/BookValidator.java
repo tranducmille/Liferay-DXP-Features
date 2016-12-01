@@ -4,8 +4,17 @@ import java.util.List;
 
 import com.liferay.portal.kernel.util.Validator;
 import com.xtivia.book.portlet.entity.Book;
-
+/**
+ * @author created by dtran
+ * A validator class
+ */
 public class BookValidator {
+	/**
+	 * validate a book
+	 * @param book
+	 * @param errors
+	 * @return true/false
+	 */
 	public static boolean validateBook(Book book, List<String> errors) {
 
 		boolean valid = true;
@@ -30,6 +39,12 @@ public class BookValidator {
 		return valid;
 	}
 	
+	/**
+	 * extract words by counter
+	 * @param word
+	 * @param count
+	 * @return string
+	 */
 	public static String extractWords(String word, int count){
 		
 		if(word == null || count < 0)

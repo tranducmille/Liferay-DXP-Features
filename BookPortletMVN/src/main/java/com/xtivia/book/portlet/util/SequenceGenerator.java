@@ -1,7 +1,10 @@
 package com.xtivia.book.portlet.util;
 
 import java.util.concurrent.atomic.AtomicInteger;
-
+/**
+ * @author created by dtran
+ * A utility class 
+ */
 public class SequenceGenerator {
 
 	private AtomicInteger atomicInteger;
@@ -11,6 +14,10 @@ public class SequenceGenerator {
 	        this.atomicInteger = new AtomicInteger(initialValue); 
 	    }
 
+	/**
+	 * return a singleton object
+	 * @return SequenceGenerator
+	 */
 	public static SequenceGenerator getInstance() {
 		if (obj == null) {
 			obj = new SequenceGenerator(1);

@@ -6,10 +6,17 @@ import java.util.List;
 import com.xtivia.book.portlet.entity.Book;
 import com.xtivia.book.portlet.util.SequenceGenerator;
 
+/**
+ * @author created by dtran
+ * A book manager implementation
+ */
 public class BookManager {
 	
 	private static BookManager _INSTANCE = null;
 	
+	/**
+	 * @return bookmanager instance
+	 */
 	public static BookManager getInstance(){
 		if(_INSTANCE == null){
 			_INSTANCE = new BookManager();
@@ -19,6 +26,9 @@ public class BookManager {
 	
 	private List<Book> books = new ArrayList<Book>();
 	
+	/**
+	 *  init data
+	 */
 	public BookManager(){
 		books.add(new Book(SequenceGenerator.getInstance().getSequence(), "The New Yorker Stories","Anne Beattie","1234556","The new yorker stories comments"));
 		books.add(new Book(SequenceGenerator.getInstance().getSequence(), "Cleopatra: A life","Stacy Schiff","2345678","Cleopatra: A life comments"));
@@ -29,6 +39,9 @@ public class BookManager {
 		books.add(new Book(SequenceGenerator.getInstance().getSequence(), "The Magnolia Story","Chip Gaines","0718079183","These famous words are now synonymous with the dynamic husband-and-wife team Chip and Joanna Gaines, stars of HGTV’s Fixer Upper"));
 		books.add(new Book(SequenceGenerator.getInstance().getSequence(), "Shaken: Discovering Your True Identity in the Midst of Life's Storms","Tim Tebow","0735289867","Most of us have been on the receiving end of rejection, a broken dream, or heartbreak. And while this is not an easy space to go through, when we are grounded in the truth, we can endure the tough times."));
 	}
+	/**
+	 * @return list of book
+	 */
 	public List<Book> getBooks() {
 		return books;
 	}
@@ -37,12 +50,21 @@ public class BookManager {
 		this.books = books;
 	}
 	
+	/**
+	 * find book by id
+	 * @param id
+	 * @return book
+	 */
 	public Book getBookById(int id){
 		Book rs = books.stream().filter(book -> book.getId() == id)
 								.findFirst().orElse(null);
 		return rs;
 	}
 	
+	/**
+	 * delete a book
+	 * @param id
+	 */
 	public void deleteBookById(int id){
 		Book book = getBookById(id);
 		if(book != null){
@@ -52,10 +74,19 @@ public class BookManager {
 		}
 	}
 	
+	/**
+	 * add a new book
+	 * @param book
+	 */
 	public void addBook(Book book){
 		books.add(book);
 	}
 	
+	/**
+	 * fin books by isbn
+	 * @param isbn
+	 * @return list of book
+	 */
 	public List<Book> findBooksByISBN(String isbn){
 		List<Book> rs = new ArrayList<Book>();
 		books.stream().filter(book -> book.getIsbn().contains(isbn)).forEach(b -> rs.add(b));

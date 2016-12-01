@@ -18,7 +18,10 @@ import com.liferay.portal.kernel.portlet.DefaultConfigurationAction;
 import com.liferay.portal.kernel.util.ParamUtil;
 
 import aQute.bnd.annotation.metatype.Configurable;
-
+/**
+ * @author created by dtran
+ * A implementation for display configuration on book portlet
+ */
 @Component(
 	    configurationPid = "com.xtivia.book.portlet.configuration.BookConfiguration",
 	    configurationPolicy = ConfigurationPolicy.OPTIONAL,
