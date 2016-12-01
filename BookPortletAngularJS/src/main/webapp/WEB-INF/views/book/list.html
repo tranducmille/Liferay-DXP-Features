@@ -1,0 +1,29 @@
+<input type="text" ng-model="nameFilter" placeholder="Search..." />
+<section id="main">
+	<div class="main-content">
+		<table class="table-result table-striped table-bordered box list-table">
+			<thead>
+				<tr>
+					<th colspan="5">Book Listing</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Title</td>
+					<td>Author</td>
+					<td>ISBN</td>
+					<td>Summary</td>
+					<td>Action</td>
+				</tr>
+				<tr ng-repeat="book in booksList | filter: searchFilter">
+					<td>{{$index + 1}}</td>
+					<td><a href="#/books/{{book.bookId}}"> {{book.title}} </a></td>
+					<td>{{book.author}}</td>
+					<td>{{book.isbn}}</td>
+					<td>{{book.summary}}</td>
+					<td><a href="#/books/delete/{{book.bookId}}"> Delete </a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</section>
