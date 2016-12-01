@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean class="com.xtivia.book.portlet.service.impl.BookLocalServiceImpl" id="com.xtivia.book.portlet.service.BookLocalService" />
+	<bean class="com.xtivia.book.portlet.service.persistence.impl.BookPersistenceImpl" id="com.xtivia.book.portlet.service.persistence.BookPersistence" parent="basePersistence" />
+	<bean class="com.xtivia.book.portlet.service.impl.EntryLocalServiceImpl" id="com.xtivia.book.portlet.service.EntryLocalService" />
+	<bean class="com.xtivia.book.portlet.service.persistence.impl.EntryPersistenceImpl" id="com.xtivia.book.portlet.service.persistence.EntryPersistence" parent="basePersistence" />
+</beans>

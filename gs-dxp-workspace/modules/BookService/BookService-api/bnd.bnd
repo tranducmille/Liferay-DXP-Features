@@ -1,0 +1,7 @@
+Bundle-SymbolicName: bookservice-api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.xtivia.book.portlet.exception,\
+	com.xtivia.book.portlet.model,\
+	com.xtivia.book.portlet.service,\
+	com.xtivia.book.portlet.service.persistence
