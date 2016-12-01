@@ -1,6 +1,10 @@
 package com.xtivia.book.portlet.configuration;
 import aQute.bnd.annotation.metatype.Meta;
 
+/**
+ * @author created by dtran
+ * A application configuration
+ */
 @Meta.OCD(id = "com.xtivia.book.portlet.configuration.BookConfiguration")
 public interface BookConfiguration {
 	

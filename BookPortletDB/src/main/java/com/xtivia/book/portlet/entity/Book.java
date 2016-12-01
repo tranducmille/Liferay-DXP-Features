@@ -8,6 +8,10 @@ import javax.persistence.Table;
 
 import com.xtivia.book.portlet.base.BaseDomain;
 
+/**
+ * @author created by dtran
+ * Entity class
+ */
 @Entity
 @Table(name = "book")
 public class Book extends BaseDomain {

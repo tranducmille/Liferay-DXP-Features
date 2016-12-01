@@ -15,6 +15,12 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/**
+ * @author dtran
+ * A abstract class for DAO implementation classes
+ * @param <T> Domain
+ * @param <ID> Number
+ */
 @Transactional
 public abstract class BaseDAO<T extends BaseDomain, ID extends Number> {
 		
@@ -27,6 +33,10 @@ public abstract class BaseDAO<T extends BaseDomain, ID extends Number> {
 		return (Class) parameterizedType.getActualTypeArguments()[0];
 	}
 	
+	/**
+	 * @param clazz
+	 * @return String
+	 */
 	private String getPrimaryFieldName(Class<?> clazz) {
 		String primaryKeyFieldName = null;
 		
@@ -47,6 +57,10 @@ public abstract class BaseDAO<T extends BaseDomain, ID extends Number> {
 		return getSessionFactory().getCurrentSession();
 	}
 
+	/**
+	 * @param transientInstance
+	 * @return ID
+	 */
 	@Transactional
 	public ID save(T transientInstance) {
 		log.debug("saving instance " + transientInstance.getClass().getName());
@@ -65,6 +79,10 @@ public abstract class BaseDAO<T extends BaseDomain, ID extends Number> {
 		}
 	}
 	
+	/**
+	 * @param transientInstance
+	 * @return instance
+	 */
 	@Transactional
 	public T saveOrUpdate(T transientInstance) {
 		log.debug("saving instance " + transientInstance.getClass().getName());
@@ -84,6 +102,9 @@ public abstract class BaseDAO<T extends BaseDomain, ID extends Number> {
 		}
 	}
 
+	/**
+	 * @param transientInstance
+	 */
 	@Transactional
 	public void update(T transientInstance) {
 		log.debug("updating instance " + transientInstance.getClass().getName());
@@ -100,6 +121,9 @@ public abstract class BaseDAO<T extends BaseDomain, ID extends Number> {
 			throw re;
 		}
 	}
+	/**
+	 * @param persistentInstance
+	 */
 	@Transactional
 	public void delete(T persistentInstance) {
 		log.debug("deleting instance " + persistentInstance.getClass().getName());
@@ -116,6 +140,10 @@ public abstract class BaseDAO<T extends BaseDomain, ID extends Number> {
 			throw re;
 		}
 	}
+	/**
+	 * @param id
+	 * @return true/false
+	 */
 	@Transactional
 	public boolean delete(ID id) {
 		Session session = this.getSession();
@@ -132,6 +160,10 @@ public abstract class BaseDAO<T extends BaseDomain, ID extends Number> {
 		}
 		return true;
 	}
+	/**
+	 * @param id
+	 * @return instance
+	 */
 	@Transactional
 	public T findById(ID id) {
 		Session session = sessionFactory.getCurrentSession();
@@ -160,6 +192,10 @@ public abstract class BaseDAO<T extends BaseDomain, ID extends Number> {
 		return this.findByCriteria(Restrictions.eq(fieldName, fieldValue));
 	}
 
+	/**
+	 * @param exp
+	 * @return list of instance
+	 */
 	@Transactional
 	public List<T> findByCriteria(Criterion exp) {
 		Session session = sessionFactory.getCurrentSession();
@@ -181,6 +217,9 @@ public abstract class BaseDAO<T extends BaseDomain, ID extends Number> {
 		}
 	}
 	
+	/**
+	 * @return list of instance
+	 */
 	@Transactional
 	public List<T> findAll() {
 		Session session = sessionFactory.getCurrentSession();

@@ -8,6 +8,10 @@ import org.osgi.service.component.annotations.Modified;
 
 import aQute.configurable.Configurable;
 
+/**
+ * @author created by dtran
+ * A application configuration
+ */
 @Component(configurationPid = "com.xtivia.book.portlet.configuration.BookConfiguration")
 public class BookAppManager {
 	/*public boolean getTitle(Map options) {

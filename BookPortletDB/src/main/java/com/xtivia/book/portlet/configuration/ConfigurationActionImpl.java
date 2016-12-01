@@ -18,7 +18,10 @@ import com.liferay.portal.kernel.portlet.DefaultConfigurationAction;
 import com.liferay.portal.kernel.util.ParamUtil;
 
 import aQute.bnd.annotation.metatype.Configurable;
-
+/**
+ * @author created by dtran
+ * A implementation for display configuration on book portlet
+ */
 @Component(
 	    configurationPid = "com.xtivia.book.portlet.configuration.BookConfiguration",
 	    configurationPolicy = ConfigurationPolicy.OPTIONAL,
@@ -32,6 +35,9 @@ public class ConfigurationActionImpl extends DefaultConfigurationAction  {
 
     private volatile BookConfiguration bookConfiguration;
 	
+	/* (non-Javadoc)
+	 * @see com.liferay.portal.kernel.portlet.BaseJSPSettingsConfigurationAction#include(javax.portlet.PortletConfig, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public void include(PortletConfig portletConfig, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
@@ -40,6 +46,9 @@ public class ConfigurationActionImpl extends DefaultConfigurationAction  {
 	        super.include(portletConfig, request, response);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.liferay.portal.kernel.portlet.SettingsConfigurationAction#processAction(javax.portlet.PortletConfig, javax.portlet.ActionRequest, javax.portlet.ActionResponse)
+	 */
 	@Override
 	public void processAction(PortletConfig portletConfig, ActionRequest actionRequest, ActionResponse actionResponse)
 			throws Exception {

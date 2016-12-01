@@ -37,7 +37,10 @@ import com.xtivia.book.portlet.service.BookService;
 import com.xtivia.book.portlet.util.BookValidator;
 
 import aQute.bnd.annotation.metatype.Configurable;
-
+/**
+ * @author created by dtran
+ * A book controller to handle all the request from client
+ */
 @Controller("baseController")
 @RequestMapping("VIEW")
 public class BaseController {
@@ -45,6 +48,11 @@ public class BaseController {
 	@Autowired(required = true)
 	BookService bookService;
 	
+	/**
+	 * @param request
+	 * @param response
+	 * @return template name
+	 */
 	@RenderMapping
 	public String processRenderRequest(RenderRequest request, RenderResponse response) {
 		System.out.println("processRenderRequest");
@@ -55,6 +63,12 @@ public class BaseController {
 		return "view";
 	}
 	
+	/**
+	 * @param bookId
+	 * @param page
+	 * @param model
+	 * @return template name
+	 */
 	@RenderMapping(params = "action=displayBookDetails")
 	public String displayBookDetails(@RequestParam("bookId")Integer bookId, 
 											@RequestParam("jspPage")String page,  Model model) {
@@ -63,12 +77,24 @@ public class BaseController {
 		return page;		
 	}
 	
+	/**
+	 * @param page
+	 * @param model
+	 * @return template name
+	 */
 	@RenderMapping(params = "action=redirectToBookReg")
 	public String redirectBookRegistration(@RequestParam("jspPage")String page, Model model) {
 		model.addAttribute("book", new Book());
 		return page;		
 	}
 	
+	/**
+	 * @param request
+	 * @param response
+	 * @param bookId
+	 * @param page
+	 * @param model
+	 */
 	@RequestMapping("VIEW")
 	@ActionMapping(params = "action=redirectToEditBook")
 	public void doAction(ActionRequest request,ActionResponse response, 
@@ -80,6 +106,11 @@ public class BaseController {
 		response.setRenderParameter("action", "showEditPage");
 	}
 	
+	/**
+	 * @param request
+	 * @param model
+	 * @return template name
+	 */
 	@RequestMapping("VIEW")
 	@RenderMapping(params = "action=showEditPage")
 	public String showEditPage(RenderRequest request,Model model) {
@@ -91,6 +122,11 @@ public class BaseController {
 		return jspPage;		
 	}
 	
+	/**
+	 * @param book
+	 * @param request
+	 * @param response
+	 */
 	@RequestMapping("VIEW")
 	@ActionMapping(params = "action=updateBook")
 	public void updateBook(@ModelAttribute("book") Book book, ActionRequest request, ActionResponse response) {
@@ -128,6 +164,15 @@ public class BaseController {
 		}
 	}
 	
+	/**
+	 * @param book
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws PortletException
+	 * @throws PortalException
+	 * @throws SystemException
+	 */
 	@RequestMapping("VIEW")
 	@ActionMapping(params = "action=addANewBook")
 	public void addBookProcessAction(@ModelAttribute("book") Book book, ActionRequest request, ActionResponse response)
@@ -160,24 +205,45 @@ public class BaseController {
 
     }	
 	
+	/**
+	 * @param request
+	 * @param model
+	 * @return template name
+	 */
 	@RequestMapping("VIEW")
 	@RenderMapping(params = "action=redirectRegPage")
 	public String redirectRegPage(RenderRequest request,Model model) {
 		return "book_registration";		
 	}
 	
+	/**
+	 * @param request
+	 * @param model
+	 * @return template name
+	 */
 	@RequestMapping("VIEW")
 	@RenderMapping(params = "action=redirectUpdatePage")
 	public String redirectUpdatePage(RenderRequest request,Model model) {
 		return "book_edit";		
 	}
 	
+	/**
+	 * @param request
+	 * @param response
+	 * @return template name
+	 */
 	@RequestMapping("VIEW")
 	@RenderMapping(params = "action=redirectToView")
 	public String renderJsp(RenderRequest request, RenderResponse response){
 		return processRenderRequest(request, response);
 	}
 	
+	/**
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws PortletException
+	 */
 	@ResourceMapping(value="sendDataURL")
 	public void serveResource(ResourceRequest request, ResourceResponse response)
 		    throws IOException, PortletException {
@@ -190,6 +256,9 @@ public class BaseController {
 		out.flush();
 	}
 		
+	/**
+	 * @param properties
+	 */
 	@Activate
     @Modified
     protected void activate(Map<String, Object> properties) {
